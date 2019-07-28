@@ -7,22 +7,21 @@ class SingleIntersectionEnv():
     '''
     Simulator Environment with CityFlow
     '''
-    def __init__(self, config_path):
+    def __init__(self, config):
+        config_path = 'data/{}/config.json'.format(args.scenario)
         self.eng = cityflow.Engine(config_path, threadNum = 1)
-        # self.eng.load_roadnet(config['roadnet'])
-        # self.eng.load_flow(config['flow'])
-        # self.config = config
-        # self.num_step = config['num_step']
-        # self.lane_phase_info = config['lane_phase_info'] # "intersection_1_1"
+        self.config = config
+        self.num_step = config['num_step']
+        self.lane_phase_info = config['lane_phase_info'] # "intersection_1_1"
 
         self.intersection_id = list(self.lane_phase_info.keys())[0]
-        # self.start_lane = self.lane_phase_info[self.intersection_id]['start_lane']
-        # self.phase_list = self.lane_phase_info[self.intersection_id]["phase"]
-        # self.phase_startLane_mapping = self.lane_phase_info[self.intersection_id]["phase_startLane_mapping"]
+        self.start_lane = self.lane_phase_info[self.intersection_id]['start_lane']
+        self.phase_list = self.lane_phase_info[self.intersection_id]["phase"]
+        self.phase_startLane_mapping = self.lane_phase_info[self.intersection_id]["phase_startLane_mapping"]
 
         self.current_phase = self.phase_list[0]
         self.current_phase_time = 0
-        # self.yellow_time = 5
+        self.yellow_time = 5
 
         self.phase_log = []
 
@@ -68,9 +67,9 @@ class SingleIntersectionEnv():
         return reward
 
     def log(self):
-        #self.eng.print_log("/replay_roadnet.json",
-        #                   "/replay_flow.json")
-        #df = pd.DataFrame({self.intersection_id: self.phase_log[:self.num_step]})
-        #if not os.path.exists(self.config['data']):
-        #    os.makedirs(self.config["data"])
-        #df.to_csv(os.path.join(self.config['data'], 'signal_plan_template.txt'), index=None)
+        self.eng.print_log("/replay_roadnet.json",
+                           "/replay_flow.json")
+        df = pd.DataFrame({self.intersection_id: self.phase_log[:self.num_step]})
+        if not os.path.exists(self.config['data']):
+            os.makedirs(self.config["data"])
+        df.to_csv(os.path.join(self.config['data'], 'signal_plan_template.txt'), index=None)
