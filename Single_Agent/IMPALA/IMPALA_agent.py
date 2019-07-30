@@ -5,7 +5,7 @@ import agent_config
 import vtrace
 
 
-class IMPALAagent:
+class IMPALAAgent:
     def __init__(self, sess, name, unroll, state_shape, output_size, activation, final_activation, hidden, coef,
                  reward_clip):
         self.sess = sess
