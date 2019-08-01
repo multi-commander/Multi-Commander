@@ -8,7 +8,7 @@ Implementation of DQN, Double DQN and Dueling DQN
 
 *DQN*
 ```
-python run_rl_control.py --algo DQN --epoch 10000 --num_step 200
+python run_rl_control.py --algo DQN --epoch 10000 --num_step 200 --state_time_span 5 --time_span 30
 ```
 *Double DQN*
 ```

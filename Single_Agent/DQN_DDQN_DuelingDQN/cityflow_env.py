@@ -26,8 +26,8 @@ class CityFlowEnv(object):
         self.current_phase_time = 0
         self.yellow_time = 5
         self.state_store_i = 0
-        self.time_span = 50
-        self.state_time_span = 5
+        self.time_span = config['time_span']
+        self.state_time_span = config['state_time_span']
         self.num_span_1 = 0
         self.num_span_2 = 0
         self.state_size_single = len(self.start_lane)
@@ -53,7 +53,7 @@ class CityFlowEnv(object):
         self.eng.next_step()
         self.phase_log.append(self.current_phase)
 
-        return self.get_state(), self.get_reward()  # return next_state and reward
+        return self.span_state(), self.get_reward()  # return next_state and reward
 
     def get_state(self):
         state = {}
@@ -90,7 +90,7 @@ class CityFlowEnv(object):
 
     def span_state(self):
         self.state = self.get_state()
-        self.state = np.array(list(self.state['start_lane_vehicle_count'].values()) + [self.state['current_phase']])
+        self.state = np.array(list(self.state['start_lane_vehicle_count'].values()))
         self.state = np.reshape(self.state, [self.state_size_single, 1])
 
         for i in range(self.state_size_single):
