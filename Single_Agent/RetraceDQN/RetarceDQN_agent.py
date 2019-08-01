@@ -14,7 +14,9 @@ class RetraceDQNAgent(DQNAgent):
     def replay(self):
         minibatch = random.sample(self.memory, self.batch_size)
         for state, action, reward, next_state in minibatch:
-
+            target = (reward + self.gamma *
+                      np.amax(self.target_model.predict(next_state)[0]))
+            target_f = self.model.predict(state)
 
             self.model.fit(state, target_f, epochs=1, verbose=0)  # train on single sample
         if self.epsilon > self.epsilon_min:

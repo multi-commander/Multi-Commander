@@ -101,9 +101,11 @@ class CityFlowEnv(object):
         return self.accum_s.reshape(1, self.state_size)
 
     def get_reward(self):
+
         # a sample reward function which calculates the total of waiting vehicles
         lane_waiting_vehicle_count = self.eng.get_lane_waiting_vehicle_count()
-        reward = -1 * sum(list(lane_waiting_vehicle_count.values())) - self.countsum  # TODO
+        # reward = -1 * sum(list(lane_waiting_vehicle_count.values()))
+        reward = -1 * (sum(list(lane_waiting_vehicle_count.values()))/len(list(lane_waiting_vehicle_count.values())) * max(list(lane_waiting_vehicle_count.values())))
         return reward
 
     def log(self):
