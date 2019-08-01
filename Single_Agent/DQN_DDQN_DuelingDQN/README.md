@@ -12,7 +12,7 @@ python run_rl_control.py --algo DQN --epoch 10000 --num_step 2000
 ```
 *Double DQN*
 ```
-python run_rl_control.py --algo DDQN --epoch 10 
+python run_rl_control.py --algo DDQN --epoch 101 --num_step 2000
 ```
 *Dueling DQN*
 ```
@@ -27,7 +27,7 @@ python run_rl_control.py --algo DQN --inference --num_step 950 --ckpt model/DQN_
 ```
 *DDQN*
 ```
-python run_rl_control.py --algo DDQN --inference --ckpt model/20190729_163837/dqn-10.h5
+python run_rl_control.py --algo DDQN --inference --num_step 2500 --ckpt model/DDQN_20190801_085209/DDQN-100.h5
 ```
 *Dueling DQN*
 ```

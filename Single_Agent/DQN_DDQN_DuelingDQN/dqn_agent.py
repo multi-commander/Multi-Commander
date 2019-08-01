@@ -8,6 +8,12 @@ from collections import deque
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
+import keras.backend.tensorflow_backend as KTF
+import tensorflow as tf
+import os
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
+KTF.set_session(tf.Session(config=tf.ConfigProto(device_count={'gpu':0})))
 
 class DQNAgent:
     def __init__(self, config):
@@ -20,7 +26,7 @@ class DQNAgent:
         self.epsilon_decay = 0.995
         self.learning_rate = 0.001
         self.update_target_freq = 5
-        self.batch_size = 30
+        self.batch_size = config['batch_size']
         self.model = self._build_model()
         self.target_model = self._build_model()
         self.update_target_network()
@@ -68,7 +74,7 @@ class DQNAgent:
 
     def save(self, name):
         self.model.save_weights(name)
-        print("model daved:{}".format(name))
+        print("model saved:{}".format(name))
 
 
 class DDQNAgent(DQNAgent):

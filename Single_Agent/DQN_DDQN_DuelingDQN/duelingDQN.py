@@ -28,7 +28,7 @@ class DuelingDQNAgent(object):
         self.global_step = 0
 
         
-        self.sess = tf.Session()
+        self.sess = tf.Session(config=tf.ConfigProto(device_count={'gpu':0}))
         self.sess.__enter__()
         
         self._build_model()
