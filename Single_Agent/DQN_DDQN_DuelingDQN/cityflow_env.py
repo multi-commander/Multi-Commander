@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import numpy as np
 import json
+import math
 
 
 # from sim_setting import sim_setting_control
@@ -105,8 +106,13 @@ class CityFlowEnv(object):
         # a sample reward function which calculates the total of waiting vehicles
         lane_waiting_vehicle_count = self.eng.get_lane_waiting_vehicle_count()
         # reward = -1 * sum(list(lane_waiting_vehicle_count.values()))
-        reward = -1 * (sum(list(lane_waiting_vehicle_count.values()))/len(list(lane_waiting_vehicle_count.values())) * max(list(lane_waiting_vehicle_count.values())))
+        reward = -1 * (sum(list(lane_waiting_vehicle_count.values())) / len(
+            list(lane_waiting_vehicle_count.values())) * max(list(lane_waiting_vehicle_count.values())))
         return reward
+
+    def get_score(self):
+        score = 1 / ((1 + math.exp(-self.get_reward()) * 1500))
+        return score
 
     def log(self):
         if not os.path.exists(self.config['replay_data_path']):
