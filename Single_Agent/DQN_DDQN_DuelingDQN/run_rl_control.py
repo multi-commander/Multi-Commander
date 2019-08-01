@@ -44,16 +44,19 @@ def main():
     roadnetFile = cityflow_config['dir'] + cityflow_config['roadnetFile']
     config["lane_phase_info"] = parse_roadnet(roadnetFile)
 
+    # build cityflow environment
+    env = CityFlowEnv(config)
+
     # # for agent
     intersection_id = list(config['lane_phase_info'].keys())[0]
     phase_list = config['lane_phase_info'][intersection_id]['phase']
     logging.info(phase_list)
-    config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane']) + 1 # 1 is for the current phase. [vehicle_count for each start lane] + [current_phase]
+    # config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane']) + 1 # 1 is for the current phase. [vehicle_count for each start lane] + [current_phase]
+    config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane']) * env.state_time_span
     config["action_size"] = len(phase_list)
     config["batch_size"] = args.batch_size
 
-    # build cityflow environment
-    env = CityFlowEnv(config)
+
 
     # build agent
     if args.algo == 'DQN':
@@ -101,6 +104,7 @@ def main():
                     
                     action = agent.choose_action(state) # index of action
                     action_phase = phase_list[action] # actual action
+
                     # no yellow light
                     next_state, reward = env.step(action_phase) # one step
                     last_action_phase = action_phase
