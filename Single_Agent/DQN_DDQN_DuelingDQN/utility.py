@@ -39,7 +39,8 @@ def parse_roadnet(roadnetFile):
         lane_phase_info_dict[intersection['id']]["start_lane"] = sorted(list(set(start_lane)))
         lane_phase_info_dict[intersection['id']]["end_lane"] = sorted(list(set(end_lane)))
 
-        for phase_i in range(1, len(intersection["trafficLight"]["lightphases"])):
+        # for phase_i in range(1, len(intersection["trafficLight"]["lightphases"])):
+        for phase_i in range(0, len(intersection["trafficLight"]["lightphases"])): # change for test_roadnet_1*1.json file, intersection id: intersection_1*1
             p = intersection["trafficLight"]["lightphases"][phase_i]
             lane_pair = []
             start_lane = []
@@ -52,3 +53,38 @@ def parse_roadnet(roadnetFile):
             lane_phase_info_dict[intersection['id']]["phase_roadLink_mapping"][phase_i] = lane_pair
 
     return lane_phase_info_dict
+
+def plot_data_lists(data_list, 
+                    label_list, 
+                    length=10, 
+                    height=6, 
+                    x_label='x', 
+                    y_label='y', 
+                    label_fsize=14, 
+                    save=True, 
+                    figure_name='temp'):
+    '''
+    data_list: data1, data2, data3...
+    plot this datas in one plot
+    '''
+    import matplotlib
+    import matplotlib.pyplot as plt
+    if save:
+        matplotlib.use('PDF')
+
+    fig, ax = plt.subplots(figsize=(length, height))
+    ax.grid(True)
+
+    for data, label in zip(data_list, label_list):
+        ax.plot(data, label=label) # mec='none', ms=3, label='Algo1 $\\lambda=0.005$'
+    
+    ax.plot()
+    ax.set_xlabel(x_label, fontsize=label_fsize)
+    ax.set_ylabel(y_label, fontsize=label_fsize)
+    ax.legend()
+    ax.grid(True)
+    
+    if save:
+        plt.savefig(figure_name)
+    else:
+        plt.show()

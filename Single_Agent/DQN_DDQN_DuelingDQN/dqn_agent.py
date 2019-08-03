@@ -19,10 +19,10 @@ class DQNAgent:
     def __init__(self, config):
         self.state_size = config['state_size']
         self.action_size = config['action_size']
-        self.memory = deque(maxlen=2000)
+        self.memory = deque(maxlen=3000)
         self.gamma = 0.95    # discount rate
-        self.epsilon = 1.0  # exploration rate
-        self.epsilon_min = 0.01
+        self.epsilon = 0.9  # exploration rate
+        self.epsilon_min = 0.1
         self.epsilon_decay = 0.995
         self.learning_rate = 0.001
         self.update_target_freq = 5
@@ -37,8 +37,8 @@ class DQNAgent:
     def _build_model(self):
         # Neural Net for Deep-Q learning Model
         model = Sequential()
-        model.add(Dense(40, input_dim=self.state_size, activation='relu'))
-        model.add(Dense(40, activation='relu'))
+        model.add(Dense(80, input_dim=self.state_size, activation='relu'))
+        model.add(Dense(80, activation='relu'))
         model.add(Dense(self.action_size, activation='linear'))
         model.compile(loss='mse',
                       optimizer=Adam(lr=self.learning_rate))
@@ -53,7 +53,7 @@ class DQNAgent:
         self.memory.append((state, action, reward, next_state))
 
     def choose_action(self, state):
-        if np.random.rand() <= self.epsilon:
+        if np.random.rand() >= self.epsilon:
             return random.randrange(self.action_size)
         act_values = self.model.predict(state)
         return np.argmax(act_values[0])  # returns action
@@ -61,13 +61,16 @@ class DQNAgent:
     def replay(self):
         minibatch = random.sample(self.memory, self.batch_size)
         for state, action, reward, next_state in minibatch:
+            test=self.gamma * np.amax(self.target_model.predict(next_state)[0])
             target = (reward + self.gamma *
                       np.amax(self.target_model.predict(next_state)[0]))
             target_f = self.model.predict(state)
             target_f[0][action] = target # action is a action_list index
-            self.model.fit(state, target_f, epochs=1, verbose=0)
-        if self.epsilon > self.epsilon_min:
-            self.epsilon *= self.epsilon_decay
+            self.model.fit(state, target_f, epochs=10, verbose=0)
+        # if self.epsilon >= self.epsilon_min:
+        #     self.epsilon *= self.epsilon_decay
+        # else:
+        #     print('!')
 
     def load(self, name):
         self.model.load_weights(name)
