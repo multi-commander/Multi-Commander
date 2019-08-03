@@ -1,7 +1,8 @@
 import ray
 import ray.rllib.agents.dqn as dqn
 from ray.tune.logger import pretty_print
-from Cityflow_ray_env import CityFlowEnv
+import gym
+import gym_cityflow
 from utility import parse_roadnet
 import logging
 from datetime import datetime
@@ -9,62 +10,66 @@ from tqdm import tqdm
 import argparse
 import json
 
-ray.init()
-agent_config = dqn.DEFAULT_CONFIG.copy()
-agent_config["num_gpus"] = 0
-agent_config["num_workers"] = 1
+def main():
+    ray.init()
+    agent_config = dqn.DEFAULT_CONFIG.copy()
+    agent_config["num_gpus"] = 0
+    agent_config["num_workers"] = 1
 
-logging.getLogger().setLevel(logging.INFO)
-date = datetime.now().strftime('%Y%m%d_%H%M%S')
-parser = argparse.ArgumentParser()
-# parser.add_argument('--scenario', type=str, default='PongNoFrameskip-v4')
-parser.add_argument('--config', type=str, default='config/global_config.json', help='config file')
-parser.add_argument('--algo', type=str, default='DQN', choices=['DQN', 'DDQN', 'DuelDQN'],
-                    help='choose an algorithm')
-parser.add_argument('--inference', action="store_true", help='inference or training')
-parser.add_argument('--ckpt', type=str, help='inference or training')
-parser.add_argument('--epoch', type=int, default=10, help='number of training epochs')
-parser.add_argument('--num_step', type=int, default=10 ** 3,
-                    help='number of timesteps for one episode, and for inference')
-parser.add_argument('--save_freq', type=int, default=100, help='model saving frequency')
-parser.add_argument('--batch_size', type=int, default=128, help='model saving frequency')
-parser.add_argument('--state_time_span', type=int, default=5, help='state interval to receive long term state')
-parser.add_argument('--time_span', type=int, default=30, help='time interval to collect data')
+    logging.getLogger().setLevel(logging.INFO)
+    date = datetime.now().strftime('%Y%m%d_%H%M%S')
+    parser = argparse.ArgumentParser()
+    # parser.add_argument('--scenario', type=str, default='PongNoFrameskip-v4')
+    parser.add_argument('--config', type=str, default='config/global_config.json', help='config file')
+    parser.add_argument('--algo', type=str, default='DQN', choices=['DQN', 'DDQN', 'DuelDQN'],
+                        help='choose an algorithm')
+    parser.add_argument('--inference', action="store_true", help='inference or training')
+    parser.add_argument('--ckpt', type=str, help='inference or training')
+    parser.add_argument('--epoch', type=int, default=10, help='number of training epochs')
+    parser.add_argument('--num_step', type=int, default=10 ** 3,
+                        help='number of timesteps for one episode, and for inference')
+    parser.add_argument('--save_freq', type=int, default=100, help='model saving frequency')
+    parser.add_argument('--batch_size', type=int, default=128, help='model saving frequency')
+    parser.add_argument('--state_time_span', type=int, default=5, help='state interval to receive long term state')
+    parser.add_argument('--time_span', type=int, default=30, help='time interval to collect data')
 
-args = parser.parse_args()
+    args = parser.parse_args()
 
-# preparing config
-# # for environment
-config = json.load(open(args.config))
-config["num_step"] = args.num_step
+    # preparing config
+    # # for environment
+    config = json.load(open(args.config))
+    config["num_step"] = args.num_step
 
-# config["replay_data_path"] = "replay"
-cityflow_config = json.load(open(config['cityflow_config_file']))
-roadnetFile = cityflow_config['dir'] + cityflow_config['roadnetFile']
-config["lane_phase_info"] = parse_roadnet(roadnetFile)
-config["state_time_span"] = args.state_time_span
-config["time_span"] = args.time_span
+    # config["replay_data_path"] = "replay"
+    cityflow_config = json.load(open(config['cityflow_config_file']))
+    roadnetFile = cityflow_config['dir'] + cityflow_config['roadnetFile']
+    config["lane_phase_info"] = parse_roadnet(roadnetFile)
+    config["state_time_span"] = args.state_time_span
+    config["time_span"] = args.time_span
 
-# # for agent
-intersection_id = list(config['lane_phase_info'].keys())[0]
-phase_list = config['lane_phase_info'][intersection_id]['phase']
-logging.info(phase_list)
-# config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane']) + 1 # 1 is for the current phase. [vehicle_count for each start lane] + [current_phase]
-config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane']) * config["state_time_span"]
-config["action_size"] = len(phase_list)
-config["batch_size"] = args.batch_size
+    # # for agent
+    intersection_id = list(config['lane_phase_info'].keys())[0]
+    phase_list = config['lane_phase_info'][intersection_id]['phase']
+    logging.info(phase_list)
+    # config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane']) + 1 # 1 is for the current phase. [vehicle_count for each start lane] + [current_phase]
+    config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane']) * config["state_time_span"]
+    config["action_size"] = len(phase_list)
+    config["batch_size"] = args.batch_size
 
-# build cityflow environment
-env = CityFlowEnv(config)
+    # build cityflow environment
+    env = gym.make('cityflow-v0')
 
-trainer = dqn.DQNTrainer(config=agent_config, env=env)
-# Can optionally call trainer.restore(path) to load a checkpoint.
+    trainer = dqn.DQNTrainer(config=agent_config, env=env)
+    # Can optionally call trainer.restore(path) to load a checkpoint.
 
-for i in range(1000):
-   # Perform one iteration of training the policy with PPO
-   result = trainer.train()
-   print(pretty_print(result))
+    for i in range(1000):
+       # Perform one iteration of training the policy with PPO
+       result = trainer.train()
+       print(pretty_print(result))
 
-   if i % 100 == 0:
-       checkpoint = trainer.save()
-       print("checkpoint saved at", checkpoint)
+       if i % 100 == 0:
+           checkpoint = trainer.save()
+           print("checkpoint saved at", checkpoint)
+
+if __name__ == '__main__':
+    main()
