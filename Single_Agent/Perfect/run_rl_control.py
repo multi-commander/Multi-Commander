@@ -35,7 +35,7 @@ def main():
                         help='number of timesteps for one episode, and for inference')
     parser.add_argument('--save_freq', type=int, default=1, help='model saving frequency')
     parser.add_argument('--batch_size', type=int, default=30, help='batchsize for training')
-    parser.add_argument('--phase_step', type=int, default=1, help='time of one phase')
+    parser.add_argument('--phase_step', type=int, default=5, help='time of one phase')
 
     args = parser.parse_args()
 
@@ -189,6 +189,13 @@ def main():
             action = agent.choose_action(state)  # index of action
             action_phase = phase_list[action]  # actual action
             next_state, reward = env.step(action_phase)  # one step
+
+            for _ in range(args.phase_step - 1):
+                next_state, reward_ = env.step(action_phase)
+                reward += reward_
+
+            reward /= args.phase_step
+
             scores.append(env.get_score())
             state = next_state
 
