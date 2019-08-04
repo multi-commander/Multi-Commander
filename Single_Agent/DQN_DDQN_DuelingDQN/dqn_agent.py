@@ -108,5 +108,3 @@ class DDQNAgent(DQNAgent):
             self.epsilon = self.epsilon_decay
 
     
-
-0.057

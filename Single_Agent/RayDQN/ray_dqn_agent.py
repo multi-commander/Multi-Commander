@@ -1,8 +1,10 @@
 import ray
 import ray.rllib.agents.dqn as dqn
+from ray.rllib.agents.dqn import DQNTrainer
 from ray.tune.logger import pretty_print
 import gym
 import gym_cityflow
+from gym_cityflow.envs.cityflow_env import CityflowGymEnv
 from utility import parse_roadnet
 import logging
 from datetime import datetime
@@ -10,12 +12,43 @@ from tqdm import tqdm
 import argparse
 import json
 
+
+def env_config(args):
+    # preparing config
+    # # for environment
+    config = json.load(open(args.config))
+
+    config["num_step"] = args.num_step
+
+    # config["replay_data_path"] = "replay"
+    cityflow_config = json.load(open(config['cityflow_config_file']))
+    roadnetFile = cityflow_config['dir'] + cityflow_config['roadnetFile']
+    config["lane_phase_info"] = parse_roadnet(roadnetFile)
+    config["state_time_span"] = args.state_time_span
+    config["time_span"] = args.time_span
+
+    # # for agent
+    intersection_id = list(config['lane_phase_info'].keys())[0]
+    phase_list = config['lane_phase_info'][intersection_id]['phase']
+    logging.info(phase_list)
+    # config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane']) + 1 # 1 is for the current phase. [vehicle_count for each start lane] + [current_phase]
+    config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane'])
+    config["action_size"] = len(phase_list)
+    config["batch_size"] = args.batch_size
+    return config
+
+
+def agent_config(config_env):
+    config = dqn.DEFAULT_CONFIG.copy()
+    config["num_gpus"] = 0
+    config["num_workers"] = 1
+    config["env"] = CityflowGymEnv
+    config["env_config"] = config_env
+    return config
+
+
 def main():
     ray.init()
-    agent_config = dqn.DEFAULT_CONFIG.copy()
-    agent_config["num_gpus"] = 0
-    agent_config["num_workers"] = 1
-
     logging.getLogger().setLevel(logging.INFO)
     date = datetime.now().strftime('%Y%m%d_%H%M%S')
     parser = argparse.ArgumentParser()
@@ -35,41 +68,30 @@ def main():
 
     args = parser.parse_args()
 
-    # preparing config
-    # # for environment
-    config = json.load(open(args.config))
-    config["num_step"] = args.num_step
+    config_env = env_config(args)
+    # ray.tune.register_env('gym_cityflow', lambda env_config:CityflowGymEnv(config_env))
 
-    # config["replay_data_path"] = "replay"
-    cityflow_config = json.load(open(config['cityflow_config_file']))
-    roadnetFile = cityflow_config['dir'] + cityflow_config['roadnetFile']
-    config["lane_phase_info"] = parse_roadnet(roadnetFile)
-    config["state_time_span"] = args.state_time_span
-    config["time_span"] = args.time_span
+    config_agent = agent_config(config_env)
 
-    # # for agent
-    intersection_id = list(config['lane_phase_info'].keys())[0]
-    phase_list = config['lane_phase_info'][intersection_id]['phase']
-    logging.info(phase_list)
-    # config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane']) + 1 # 1 is for the current phase. [vehicle_count for each start lane] + [current_phase]
-    config["state_size"] = len(config['lane_phase_info'][intersection_id]['start_lane']) * config["state_time_span"]
-    config["action_size"] = len(phase_list)
-    config["batch_size"] = args.batch_size
+    # # build cityflow environment
 
-    # build cityflow environment
-    env = gym.make('cityflow-v0')
-
-    trainer = dqn.DQNTrainer(config=agent_config, env=env)
-    # Can optionally call trainer.restore(path) to load a checkpoint.
-
+    trainer = DQNTrainer(
+        env=CityflowGymEnv,
+        config=config_agent)
     for i in range(1000):
-       # Perform one iteration of training the policy with PPO
-       result = trainer.train()
-       print(pretty_print(result))
+        # Perform one iteration of training the policy with PPO
+        result = trainer.train()
+        print(pretty_print(result))
 
-       if i % 100 == 0:
-           checkpoint = trainer.save()
-           print("checkpoint saved at", checkpoint)
+        if i % 100 == 0:
+            checkpoint = trainer.save()
+            print("checkpoint saved at", checkpoint)
+
+    # ray.tune.run(
+    #     "DQN",
+    #     stop={"episode_reward_mean": 200},
+    #     config=config_agent,
+    # )
 
 if __name__ == '__main__':
     main()
