@@ -15,3 +15,25 @@ ray中可以自定义环境以及神经网络模型，详见[此处](https://git
 1. `agent_config`：遵照 `ray` 中 [`agent/[algorithm].py`](https://github.com/ray-project/ray/tree/master/python/ray/rllib/agents)的 `DEFAULT_CONFIG` 以及 [`agents/trainer.py`](https://github.com/ray-project/ray/blob/master/python/ray/rllib/agents/trainer.py)的 `COMMON_CONFIG`，两者是继承关系，`DEFAULT_CONFIG`继承 `COMMON_CONFIG` 
 2. `env_config`：为 `agent_config`字典下的一个属性，即其为大字典中的小字典，用于配置 `Cityflow` 环境参数
 
+
+
+#### Future Research
+
+Just change this part 
+
+```python
+    trainer = DQNTrainer(
+        env=CityflowGymEnv,
+        config=config_agent)
+```
+
+and 
+
+```python
+import ray.rllib.agents.dqn as dqn
+from ray.rllib.agents.dqn import DQNTrainer
+```
+
+into your algorithm, then it would work.
+
+**Remember:** Follow the `DEFAULT_CONFIG` in each algorithm and change your own configuration.
