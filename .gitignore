@@ -1,2 +1,4 @@
 
 *.xml
+*.tune_metadata
+Single_Agent/RayDQN_Perfect/examples/replay.txt
