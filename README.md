@@ -33,3 +33,49 @@ IMPALA
 #### Multi-Agent Method
 
 QMIX
+
+
+
+### Installation
+
+This project is based on [CityFlow](https://cityflow.readthedocs.io/en/latest/) which is *a multi-agent reinforcement learning environment for large scale city traffic scenario*, the algorithms are bases on [Ray](https://ray.readthedocs.io/en/latest/) which is *a fast and simple framework for building and running distributed applications.*
+
+#### [CityFlow build from source](https://cityflow.readthedocs.io/en/latest/install.html)
+
+This guide is based on Ubuntu 16.04.
+
+CityFlow has little dependencies, so building from source is not scary.
+
+1. Check that you have python 3.6 installed. Other version of python might work, however, we only tested on python with version >= 3.6.
+2. **Install cpp dependencies**
+
+```
+apt update && apt-get install -y build-essential libboost-all-dev cmake
+```
+
+3. Clone CityFlow project from github.
+
+```
+git clone --recursive git@github.com:cityflow-project/CityFlow.git
+```
+
+Notice that CityFlow uses pybind11 to integrate C++ code with python, the repo has pybind11 as a submodule, please use `--recursive` to clone all codes.
+
+4. Go to CityFlow project’s root directory and run
+
+```python
+pip install .
+```
+
+5. Wait for installation to complete and CityFlow should be successfully installed.
+
+```python
+import cityflow
+eng = cityflow.Engine
+```
+
+#### [Ray Installation](https://ray.readthedocs.io/en/latest/installation.html)
+
+```python
+pip install -U ray  # also recommended: ray[debug]
+```
