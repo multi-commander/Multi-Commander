@@ -3,11 +3,11 @@ import json
 from flask import jsonify
 
 
-def get_cityflow_config(interval, seed, dir, roadnetFile, flowFile, rltrafficlight,savereplay):
+def get_cityflow_config(interval, seed, dir, roadnetFile, flowFile, rltrafficlight, savereplay, roadnetlogfile, replaylogfile):
 
     config = {'interval': interval, 'seed': seed, 'dir': dir, "roadnetFile": roadnetFile, "flowFile": flowFile,
-              'rlTrafficLight': rltrafficlight, 'saveReplay': savereplay, "roadnetLogFile": "roadnet.json",
-              "replayLogFile": "replay.txt"}
+              'rlTrafficLight': rltrafficlight, 'saveReplay': savereplay, "roadnetLogFile": roadnetlogfile,
+              "replayLogFile": replaylogfile}
     jsonData = json.dumps(config)
     fileObject = open('./config/cityflow_config.json', 'w')
     fileObject.write(jsonData)

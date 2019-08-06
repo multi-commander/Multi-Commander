@@ -599,27 +599,27 @@ class AnonEnv:
 
     def reset(self):
         # self.eng.reset() to be implemented
-
         # self.eng = engine.Engine(self.dic_traffic_env_conf["INTERVAL"],
         #                          self.dic_traffic_env_conf["THREADNUM"],
         #                          self.dic_traffic_env_conf["SAVEREPLAY"],
         #                          self.dic_traffic_env_conf["RLTRAFFICLIGHT"],
         #                          False,
         #                          0)
-
-        #self.load_roadnet(self.dic_traffic_env_conf["ROADNET_FILE"])
-        #self.load_flow(self.dic_traffic_env_conf["TRAFFIC_FILE"])
+        # self.load_roadnet(self.dic_traffic_env_conf["ROADNET_FILE"])
+        # self.load_flow(self.dic_traffic_env_conf["TRAFFIC_FILE"])
 
         get_cityflow_config(self.dic_traffic_env_conf["INTERVAL"],
                             0,
-                            "./data/template_lsr/1_6/",
+                            self.path_to_work_directory+'/',
+                            # "./data/template_lsr/1_6/",
                             self.dic_traffic_env_conf["ROADNET_FILE"],
                             self.dic_traffic_env_conf["TRAFFIC_FILE"],
                             self.dic_traffic_env_conf["RLTRAFFICLIGHT"],
-                            self.dic_traffic_env_conf["SAVEREPLAY"])
+                            self.dic_traffic_env_conf["SAVEREPLAY"],
+                            'roadnet.json',
+                            'replay.txt')
 
         self.eng = cityflow.Engine("./config/cityflow_config.json", self.dic_traffic_env_conf["THREADNUM"])
-
 
         # get adjacency
         self.traffic_light_node_dict = self._adjacency_extraction()
@@ -688,25 +688,17 @@ class AnonEnv:
 
     def reset_test(self):
 
-        # self.eng.reset() to be implemented
-        # self.eng = engine.Engine(self.dic_traffic_env_conf["INTERVAL"],
-        #                          self.dic_traffic_env_conf["THREADNUM"],
-        #                          self.dic_traffic_env_conf["SAVEREPLAY"],
-        #                          self.dic_traffic_env_conf["RLTRAFFICLIGHT"],
-        #                          False,
-        #                          0)
-        #
-        # self.load_roadnet(self.dic_traffic_env_conf["ROADNET_FILE"])
-        #
-        # self.load_flow(self.dic_traffic_env_conf["TRAFFIC_SEPARATE"])
 
         get_cityflow_config(self.dic_traffic_env_conf["INTERVAL"],
                             0,
-                            "./data/template_lsr/1_6/",
+                            self.path_to_work_directory+'/',
+                            # "./data/template_lsr/1_6/",
                             self.dic_traffic_env_conf["ROADNET_FILE"],
                             self.dic_traffic_env_conf["TRAFFIC_FILE"],
                             self.dic_traffic_env_conf["RLTRAFFICLIGHT"],
-                            self.dic_traffic_env_conf["SAVEREPLAY"])
+                            self.dic_traffic_env_conf["SAVEREPLAY"],
+                            'roadnet.json',
+                            'replay.txt')
 
         self.eng = cityflow.Engine("./config/cityflow_config.json", self.dic_traffic_env_conf["THREADNUM"])
 

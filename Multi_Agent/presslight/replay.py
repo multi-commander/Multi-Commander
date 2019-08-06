@@ -67,8 +67,9 @@ def run_wrapper(dir, one_round, run_cnt, if_gui):
         if not os.path.exists(path_to_log):
             os.makedirs(path_to_log)
         env = DIC_ENVS[dic_traffic_env_conf["SIMULATOR_TYPE"]](path_to_log=path_to_log,
-                         path_to_work_directory=dic_path["PATH_TO_WORK_DIRECTORY"],
-                         dic_traffic_env_conf=dic_traffic_env_conf)
+                                                               path_to_work_directory=dic_path[
+                                                                   "PATH_TO_WORK_DIRECTORY"],
+                                                               dic_traffic_env_conf=dic_traffic_env_conf)
 
         done = False
         state = env.reset()
@@ -94,17 +95,17 @@ def run_wrapper(dir, one_round, run_cnt, if_gui):
             downsample(path_to_log)
             # print("end down")
 
-    #except:
+    # except:
     #    pass
-        # import sys
-        # sys.stderr.write("fail to test model_%"%model_round)
-        # raise SystemExit(1)
+    # import sys
+    # sys.stderr.write("fail to test model_%"%model_round)
+    # raise SystemExit(1)
 
     return
 
-def run_inference (modelfilelist):
-    dir = 'cityflow'
 
+def run_inference(dir, model_file_list, RUN_COUNT):
+    # dir = 'cityflow'
     model_dir = "model/" + dir
     records_dir = "records/" + dir
     dic_path = {}
@@ -118,7 +119,6 @@ def run_inference (modelfilelist):
     with open(os.path.join(records_dir, "traffic_env.conf"), "r") as f:
         dic_traffic_env_conf = json.load(f)
 
-
     # dump dic_exp_conf
     with open(os.path.join(records_dir, "test_exp.conf"), "w") as f:
         json.dump(dic_exp_conf, f)
@@ -127,14 +127,16 @@ def run_inference (modelfilelist):
         dic_agent_conf["EPSILON"] = 0  # dic_agent_conf["EPSILON"]  # + 0.1*cnt_gen
         dic_agent_conf["MIN_EPSILON"] = 0
 
-    path_to_log = os.path.join(dic_path["PATH_TO_WORK_DIRECTORY"], "test_round", 'model')
+    path_to_log = os.path.join(dic_path["PATH_TO_WORK_DIRECTORY"], "test_round", 'log')
     if not os.path.exists(path_to_log):
         os.makedirs(path_to_log)
-        
+
     dic_traffic_env_conf["SAVEREPLAY"] = True
+
     env = DIC_ENVS[dic_traffic_env_conf["SIMULATOR_TYPE"]](path_to_log=path_to_log,
                                                            path_to_work_directory=dic_path["PATH_TO_WORK_DIRECTORY"],
                                                            dic_traffic_env_conf=dic_traffic_env_conf)
+
     state = env.reset()
     agents = [None] * dic_traffic_env_conf['NUM_AGENTS']
 
@@ -148,25 +150,23 @@ def run_inference (modelfilelist):
             best_round=None,
             # intersection_id=str(i)
         )
-        agent.load_network_(modelfilelist[i])
+        agent.load_network_(model_file_list[i])
         agents[i] = agent
 
     step_num = 0
-    while step_num < 100:
+    while step_num < RUN_COUNT:
         action_list = []
         for i in range(dic_traffic_env_conf["NUM_AGENTS"]):
             for one_state in state:
                 one_state['cur_phase'][0] = str(one_state['cur_phase'][0])
                 action = agents[i].choose_action(step_num, one_state)
                 action_list.append(action)
-            # one_state = state[i]
-            # action = agents[i].choose_action(step_num, one_state)
-            # action_list.append(action)
 
         next_state, reward, done, _ = env.step(action_list, False)
 
         state = next_state
         step_num += 1
+
 
 def main(memo=None):
     # run name
@@ -206,7 +206,7 @@ def main(memo=None):
         test_round_dir = os.path.join("records", memo, traffic, "test_round")
         if os.path.exists(test_round_dir):
             print("exist")
-            #continue
+            # continue
         # if traffic[0:-15] not in given_traffic_list:
         #    continue
 
@@ -257,9 +257,12 @@ def main(memo=None):
 
 
 if __name__ == "__main__":
-    #main()
-    modelfilelist = ['./model/test/round_216_inter_0.h5', './model/test/round_216_inter_1.h5',
-                     './model/test/round_216_inter_2.h5', './model/test/round_216_inter_3.h5',
-                     './model/test/round_216_inter_4.h5', './model/test/round_216_inter_5.h5']
+    # main()
+    model_file_list = ['./model/test/round_216_inter_0.h5', './model/test/round_216_inter_1.h5',
+                       './model/test/round_216_inter_2.h5', './model/test/round_216_inter_3.h5',
+                       './model/test/round_216_inter_4.h5', './model/test/round_216_inter_5.h5']
 
-    run_inference(modelfilelist)
+    dir = 'test/anon_1_6_300_0.3_synthetic.json_08_05_19_55_50'
+    NUM_COUNT = 700
+
+    run_inference(dir, model_file_list, NUM_COUNT)
