@@ -56,7 +56,7 @@ apt update && apt-get install -y build-essential libboost-all-dev cmake
 3. Clone CityFlow project from github.
 
 ```
-git clone --recursive git@github.com:cityflow-project/CityFlow.git
+git clone --recursive https://github.com/cityflow-project/CityFlow.git
 ```
 
 Notice that CityFlow uses pybind11 to integrate C++ code with python, the repo has pybind11 as a submodule, please use `--recursive` to clone all codes.
