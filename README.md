@@ -85,7 +85,7 @@ eng = cityflow.Engine
 #### [Ray Installation](https://ray.readthedocs.io/en/latest/installation.html)
 
 ```python
-pip install -U ray  # also recommended: ray[debug]
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U ray  # also recommended: ray[debug]
 ```
 
 #### [Gym](https://gym.openai.com/docs/)
