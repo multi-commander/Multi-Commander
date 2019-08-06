@@ -130,13 +130,11 @@ def run_inference (modelfilelist):
     path_to_log = os.path.join(dic_path["PATH_TO_WORK_DIRECTORY"], "test_round", 'model')
     if not os.path.exists(path_to_log):
         os.makedirs(path_to_log)
-
+        
+    dic_traffic_env_conf["SAVEREPLAY"] = True
     env = DIC_ENVS[dic_traffic_env_conf["SIMULATOR_TYPE"]](path_to_log=path_to_log,
                                                            path_to_work_directory=dic_path["PATH_TO_WORK_DIRECTORY"],
                                                            dic_traffic_env_conf=dic_traffic_env_conf)
-
-
-    dic_traffic_env_conf["SAVEREPLAY"] = True
     state = env.reset()
     agents = [None] * dic_traffic_env_conf['NUM_AGENTS']
 
