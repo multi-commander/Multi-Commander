@@ -79,3 +79,10 @@ eng = cityflow.Engine
 ```python
 pip install -U ray  # also recommended: ray[debug]
 ```
+
+#### [Gym](https://gym.openai.com/docs/)
+```
+git clone https://github.com/openai/gym
+cd gym
+pip install -e .
+```
