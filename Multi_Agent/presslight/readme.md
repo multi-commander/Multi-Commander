@@ -19,4 +19,4 @@ DQN，每个agent控制自己的Intersection；互相之间无信息传递
 Before running above codes, you may need to install following packages or environments:
 - Python 3.6
 - Keras 2.2.0 
-- Tensorflow 1.9.0
+- Tensorflow 1.13.0
