@@ -2,7 +2,7 @@
 
 `gym_cityflow`文档结构遵循 `gym` 环境的规则，详见[此处](https://medium.com/@apoddar573/making-your-own-custom-environment-in-gym-c3b65ff8cdaa)
 
-使用前，`cd`到`gym_cityflow`目录，运行 `pip install -e .`进行环境包的安装。否则，无法在 `ray_dqn_agent.py` 中直接 `import gym_cityflow`
+使用前，`cd`到`gym_cityflow`目录，**运行 `pip install -e .`进行环境包的安装**。否则，无法在 `ray_dqn_agent.py` 中直接 `import gym_cityflow`
 
 ray中可以自定义环境以及神经网络模型，详见[此处](https://github.com/ray-project/ray/blob/master/python/ray/rllib/examples/custom_env.py)
 
@@ -37,3 +37,16 @@ from ray.rllib.agents.dqn import DQNTrainer
 into your algorithm, then it would work.
 
 **Remember:** Follow the `DEFAULT_CONFIG` in each algorithm and change your own configuration.
+
+
+
+#### TensorBoard
+
+For Tensorboard, just 
+
+```
+tensorboard --logdir = ~/ray_results
+```
+
+**注:** ray_results目录位置需根据本机位置修改, 可直接写绝对路径
+
