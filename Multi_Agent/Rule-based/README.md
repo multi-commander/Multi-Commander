@@ -77,3 +77,5 @@ Simulation
 
 open firefox with the url: http://localhost:8080/?roadnetFile=roadnet.json&logFile=replay.txt
 ```
+
+![demo_1_6](./README.assets/demo_1_6.gif)
