@@ -12,21 +12,29 @@
 
 [RayDQN](./Single_Agent/RayDQN_Perfect/README.md)
 
+Rainbow
+
 
 
 #### Documentation for PG based Method
 
 PPO
 
-DDPG
+DDPG, TD3
+
+SAC
 
 
 
 #### Documentation for Distributed Method
 
+IMPALA
+
 A3C
 
-IMPALA
+APPO
+
+Ape-X
 
 
 
