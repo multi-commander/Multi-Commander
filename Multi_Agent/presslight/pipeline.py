@@ -215,6 +215,8 @@ class Pipeline:
     def downsample(self, path_to_log, i):
 
         path_to_pkl = os.path.join(path_to_log, "inter_{0}.pkl".format(i))
+        if not os.path.isfile(path_to_pkl):
+            open(path_to_pkl,'a').close()  #if there is no file, create it.
         with open(path_to_pkl, "rb") as f_logging_data:
             try:
                 logging_data = pickle.load(f_logging_data)
