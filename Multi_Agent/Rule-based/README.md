@@ -45,6 +45,11 @@ open firefox with the url: http://localhost:8080/?roadnetFile=roadnet.json&logFi
 
 **Training**
 
+*QMIX (based on Ray)*
+```
+python ray_multi_agent.py
+```
+
 *MDQN*
 ```
 python run_rl_multi_control.py --algo MDQN --epoch 1000 --num_step 500 --phase_step 10
@@ -77,3 +82,8 @@ Simulation
 
 open firefox with the url: http://localhost:8080/?roadnetFile=roadnet.json&logFile=replay.txt
 ```
+
+
+---
+
+<img src=demos/1_6_700/demo_1_6.gif />
