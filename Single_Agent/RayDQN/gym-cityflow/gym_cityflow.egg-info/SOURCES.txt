@@ -1,6 +1,0 @@
-setup.py
-gym_cityflow.egg-info/PKG-INFO
-gym_cityflow.egg-info/SOURCES.txt
-gym_cityflow.egg-info/dependency_links.txt
-gym_cityflow.egg-info/requires.txt
-gym_cityflow.egg-info/top_level.txt

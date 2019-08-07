@@ -12,21 +12,29 @@
 
 [RayDQN](./Single_Agent/RayDQN_Perfect/README.md)
 
+Rainbow
+
 
 
 #### Documentation for PG based Method
 
 PPO
 
-DDPG
+DDPG, TD3
+
+SAC
 
 
 
 #### Documentation for Distributed Method
 
+IMPALA
+
 A3C
 
-IMPALA
+APPO
+
+Ape-X
 
 
 
@@ -77,7 +85,7 @@ eng = cityflow.Engine
 #### [Ray Installation](https://ray.readthedocs.io/en/latest/installation.html)
 
 ```python
-pip install -U ray  # also recommended: ray[debug]
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U ray  # also recommended: ray[debug]
 ```
 
 #### [Gym](https://gym.openai.com/docs/)
