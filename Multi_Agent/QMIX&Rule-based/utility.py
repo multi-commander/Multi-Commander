@@ -39,8 +39,8 @@ def parse_roadnet(roadnetFile):
         lane_phase_info_dict[intersection['id']]["start_lane"] = sorted(list(set(start_lane)))
         lane_phase_info_dict[intersection['id']]["end_lane"] = sorted(list(set(end_lane)))
 
-        # for phase_i in range(1, len(intersection["trafficLight"]["lightphases"])):
-        for phase_i in range(0, len(intersection["trafficLight"]["lightphases"])): # change for test_roadnet_1*1.json file, intersection id: intersection_1*1
+        for phase_i in range(1, len(intersection["trafficLight"]["lightphases"])):
+        # for phase_i in range(0, len(intersection["trafficLight"]["lightphases"])): # change for test_roadnet_1*1.json file, intersection id: intersection_1*1
             p = intersection["trafficLight"]["lightphases"][phase_i]
             lane_pair = []
             start_lane = []
