@@ -27,8 +27,8 @@ parser.add_argument('--algo', type=str, default='QMIX', choices=['QMIX', 'APEX_Q
                     help='choose an algorithm')
 parser.add_argument('--inference', action="store_true", help='inference or training')
 parser.add_argument('--ckpt', type=str, help='inference or training')
-parser.add_argument('--epoch', type=int, default=100, help='number of training epochs')
-parser.add_argument('--num_step', type=int, default=500,help='number of timesteps for one episode, and for inference')
+parser.add_argument('--epoch', type=int, default=500, help='number of training epochs')
+parser.add_argument('--num_step', type=int, default=1500,help='number of timesteps for one episode, and for inference')
 parser.add_argument('--save_freq', type=int, default=50, help='model saving frequency')
 parser.add_argument('--batch_size', type=int, default=128, help='model saving frequency')
 parser.add_argument('--state_time_span', type=int, default=5, help='state interval to receive long term state')
@@ -60,7 +60,7 @@ def main():
     args = parser.parse_args()
     config = generate_config(args)
 
-    env = CityFlowEnvRay(config)
+    # env = CityFlowEnvRay(config)
     # eng = cityflow.Engine(config["cityflow_config_file"], thread_num = config["thread_num"])
     # config["eng"] = [eng,]
     # print(config["eng"])
@@ -82,12 +82,12 @@ def main():
     if args.algo == "QMIX":
         config_ = {
             # "num_workers": 2,
-            "num_gpus_per_worker":1,
+            "num_gpus_per_worker":0,
             "sample_batch_size": 4,
-            "num_cpus_per_worker": 8,
+            "num_cpus_per_worker": 3,
             "train_batch_size": 32,
             "exploration_final_eps": 0.0,
-            "num_workers": 0,
+            "num_workers": 8,
             "mixer": grid_search(["qmix"]),
             "env_config":config
         }
@@ -119,6 +119,7 @@ def main():
         stop={
             "timesteps_total":args.epoch*args.num_step
         },
+        checkpoint_freq=args.save_freq,
         config=dict(config_,
         **{"env":"cityflow_multi"}),
     )
