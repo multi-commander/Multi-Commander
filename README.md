@@ -42,6 +42,10 @@ Ape-X
 
 QMIX
 
+VDN
+
+Gamma-Reward
+
 
 
 ### Installation
