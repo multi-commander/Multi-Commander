@@ -26,13 +26,13 @@ TD3
 
 #### Documentation for Distributed Method
 
-IMPALA
+[IMPALA](./Single_Agent/ScalableArchitecture/README.md)
 
-A3C
+[A3C](./Single_Agent/ScalableArchitecture/README.md)
 
-APPO
+[APPO](./Single_Agent/ScalableArchitecture/README.md)
 
-Ape-X
+[Ape-X](./Single_Agent/ScalableArchitecture/README.md)
 
 
 
