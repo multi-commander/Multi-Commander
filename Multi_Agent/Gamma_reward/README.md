@@ -6,7 +6,7 @@ $$
 $$
 
 
-#### Environment Usage
+### Environment Usage
 
 `gym_cityflow`文档结构遵循 `gym` 环境的规则，详见[此处](https://medium.com/@apoddar573/making-your-own-custom-environment-in-gym-c3b65ff8cdaa)
 
@@ -16,7 +16,7 @@ ray中可以自定义环境以及神经网络模型，详见[此处](https://git
 
 
 
-#### Configuration
+### Configuration
 
 `Config`包含 `agent_config` 和 `env_config`
 
@@ -25,7 +25,7 @@ ray中可以自定义环境以及神经网络模型，详见[此处](https://git
 
 
 
-#### Future Research
+### Future Research
 
 Just change this part 
 
