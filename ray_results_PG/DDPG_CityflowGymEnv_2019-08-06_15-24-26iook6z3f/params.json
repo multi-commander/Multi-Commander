@@ -1,0 +1,375 @@
+{
+  "actor_hidden_activation": "relu",
+  "actor_hiddens": [
+    400,
+    300
+  ],
+  "actor_lr": 0.001,
+  "batch_mode": "truncate_episodes",
+  "beta_annealing_fraction": 0.2,
+  "buffer_size": 50000,
+  "callbacks": {
+    "on_episode_end": null,
+    "on_episode_start": null,
+    "on_episode_step": null,
+    "on_postprocess_traj": null,
+    "on_sample_end": null,
+    "on_train_result": null
+  },
+  "clip_actions": true,
+  "clip_rewards": null,
+  "collect_metrics_timeout": 180,
+  "compress_observations": false,
+  "critic_hidden_activation": "relu",
+  "critic_hiddens": [
+    400,
+    300
+  ],
+  "critic_lr": 0.001,
+  "custom_resources_per_worker": {},
+  "env": "<class 'gym_cityflow.envs.cityflow_env.CityflowGymEnv'>",
+  "env_config": {
+    "action_size": 8,
+    "batch_size": 128,
+    "cityflow_config_file": "examples/config_1x1.json",
+    "lane_phase_info": {
+      "intersection_1_1": {
+        "end_lane": [
+          "road_1_1_0_0",
+          "road_1_1_0_1",
+          "road_1_1_1_0",
+          "road_1_1_1_1",
+          "road_1_1_2_0",
+          "road_1_1_2_1",
+          "road_1_1_3_0",
+          "road_1_1_3_1"
+        ],
+        "phase": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "phase_roadLink_mapping": {
+          "1": [
+            [
+              "road_0_1_0_1",
+              "road_1_1_0_0"
+            ],
+            [
+              "road_0_1_0_1",
+              "road_1_1_0_1"
+            ],
+            [
+              "road_2_1_2_1",
+              "road_1_1_2_0"
+            ],
+            [
+              "road_2_1_2_1",
+              "road_1_1_2_1"
+            ]
+          ],
+          "2": [
+            [
+              "road_1_0_1_1",
+              "road_1_1_1_0"
+            ],
+            [
+              "road_1_0_1_1",
+              "road_1_1_1_1"
+            ],
+            [
+              "road_1_2_3_1",
+              "road_1_1_3_0"
+            ],
+            [
+              "road_1_2_3_1",
+              "road_1_1_3_1"
+            ]
+          ],
+          "3": [
+            [
+              "road_0_1_0_0",
+              "road_1_1_1_0"
+            ],
+            [
+              "road_0_1_0_0",
+              "road_1_1_1_1"
+            ],
+            [
+              "road_2_1_2_0",
+              "road_1_1_3_0"
+            ],
+            [
+              "road_2_1_2_0",
+              "road_1_1_3_1"
+            ]
+          ],
+          "4": [
+            [
+              "road_1_0_1_0",
+              "road_1_1_2_0"
+            ],
+            [
+              "road_1_0_1_0",
+              "road_1_1_2_1"
+            ],
+            [
+              "road_1_2_3_0",
+              "road_1_1_0_0"
+            ],
+            [
+              "road_1_2_3_0",
+              "road_1_1_0_1"
+            ]
+          ],
+          "5": [
+            [
+              "road_0_1_0_1",
+              "road_1_1_0_0"
+            ],
+            [
+              "road_0_1_0_1",
+              "road_1_1_0_1"
+            ],
+            [
+              "road_0_1_0_0",
+              "road_1_1_1_0"
+            ],
+            [
+              "road_0_1_0_0",
+              "road_1_1_1_1"
+            ]
+          ],
+          "6": [
+            [
+              "road_2_1_2_1",
+              "road_1_1_2_0"
+            ],
+            [
+              "road_2_1_2_1",
+              "road_1_1_2_1"
+            ],
+            [
+              "road_2_1_2_0",
+              "road_1_1_3_0"
+            ],
+            [
+              "road_2_1_2_0",
+              "road_1_1_3_1"
+            ]
+          ],
+          "7": [
+            [
+              "road_1_0_1_1",
+              "road_1_1_1_0"
+            ],
+            [
+              "road_1_0_1_1",
+              "road_1_1_1_1"
+            ],
+            [
+              "road_1_0_1_0",
+              "road_1_1_2_0"
+            ],
+            [
+              "road_1_0_1_0",
+              "road_1_1_2_1"
+            ]
+          ],
+          "8": [
+            [
+              "road_1_2_3_0",
+              "road_1_1_0_0"
+            ],
+            [
+              "road_1_2_3_0",
+              "road_1_1_0_1"
+            ],
+            [
+              "road_1_2_3_1",
+              "road_1_1_3_0"
+            ],
+            [
+              "road_1_2_3_1",
+              "road_1_1_3_1"
+            ]
+          ]
+        },
+        "phase_startLane_mapping": {
+          "1": [
+            "road_0_1_0_1",
+            "road_2_1_2_1"
+          ],
+          "2": [
+            "road_1_0_1_1",
+            "road_1_2_3_1"
+          ],
+          "3": [
+            "road_0_1_0_0",
+            "road_2_1_2_0"
+          ],
+          "4": [
+            "road_1_0_1_0",
+            "road_1_2_3_0"
+          ],
+          "5": [
+            "road_0_1_0_1",
+            "road_0_1_0_0"
+          ],
+          "6": [
+            "road_2_1_2_1",
+            "road_2_1_2_0"
+          ],
+          "7": [
+            "road_1_0_1_1",
+            "road_1_0_1_0"
+          ],
+          "8": [
+            "road_1_2_3_0",
+            "road_1_2_3_1"
+          ]
+        },
+        "start_lane": [
+          "road_0_1_0_0",
+          "road_0_1_0_1",
+          "road_1_0_1_0",
+          "road_1_0_1_1",
+          "road_1_2_3_0",
+          "road_1_2_3_1",
+          "road_2_1_2_0",
+          "road_2_1_2_1"
+        ]
+      }
+    },
+    "num_step": 1000,
+    "state_size": 8,
+    "state_time_span": 5,
+    "thread_num": 1,
+    "time_span": 30
+  },
+  "evaluation_config": {
+    "exploration_final_eps": 0,
+    "exploration_fraction": 0
+  },
+  "evaluation_interval": null,
+  "evaluation_num_episodes": 10,
+  "exploration_final_scale": 0.02,
+  "exploration_fraction": 0.1,
+  "exploration_gaussian_sigma": 0.1,
+  "exploration_noise_type": "ou",
+  "exploration_ou_noise_scale": 0.1,
+  "exploration_ou_sigma": 0.2,
+  "exploration_ou_theta": 0.15,
+  "exploration_should_anneal": false,
+  "final_prioritized_replay_beta": 0.4,
+  "gamma": 0.99,
+  "grad_norm_clipping": null,
+  "horizon": null,
+  "huber_threshold": 1.0,
+  "ignore_worker_failures": false,
+  "input": "sampler",
+  "input_evaluation": [
+    "is",
+    "wis"
+  ],
+  "l2_reg": 1e-06,
+  "learning_starts": 1500,
+  "local_tf_session_args": {
+    "inter_op_parallelism_threads": 8,
+    "intra_op_parallelism_threads": 8
+  },
+  "log_level": "INFO",
+  "lr": 0.0001,
+  "metrics_smoothing_episodes": 100,
+  "min_iter_time_s": 1,
+  "model": {
+    "conv_activation": "relu",
+    "conv_filters": null,
+    "custom_model": null,
+    "custom_options": {},
+    "custom_preprocessor": null,
+    "dim": 84,
+    "fcnet_activation": "tanh",
+    "fcnet_hiddens": [
+      256,
+      256
+    ],
+    "framestack": true,
+    "free_log_std": false,
+    "grayscale": false,
+    "lstm_cell_size": 256,
+    "lstm_use_prev_action_reward": false,
+    "max_seq_len": 20,
+    "squash_to_range": false,
+    "use_lstm": false,
+    "zero_mean": true
+  },
+  "monitor": false,
+  "multiagent": {
+    "policies": {},
+    "policies_to_train": null,
+    "policy_mapping_fn": null
+  },
+  "n_step": 1,
+  "num_cpus_for_driver": 1,
+  "num_cpus_per_worker": 1,
+  "num_envs_per_worker": 1,
+  "num_gpus": 0,
+  "num_gpus_per_worker": 0,
+  "num_workers": 1,
+  "observation_filter": "NoFilter",
+  "optimizer": {},
+  "output": null,
+  "output_compress_columns": [
+    "obs",
+    "new_obs"
+  ],
+  "output_max_file_size": 67108864,
+  "parameter_noise": false,
+  "per_worker_exploration": false,
+  "policy_delay": 1,
+  "postprocess_inputs": false,
+  "preprocessor_pref": "deepmind",
+  "prioritized_replay": true,
+  "prioritized_replay_alpha": 0.6,
+  "prioritized_replay_beta": 0.4,
+  "prioritized_replay_eps": 1e-06,
+  "pure_exploration_steps": 1000,
+  "remote_env_batch_wait_ms": 0,
+  "remote_worker_envs": false,
+  "sample_async": false,
+  "sample_batch_size": 1,
+  "schedule_max_timesteps": 100000,
+  "shuffle_buffer_size": 0,
+  "smooth_target_policy": false,
+  "soft_horizon": false,
+  "synchronize_filters": true,
+  "target_network_update_freq": 0,
+  "target_noise": 0.2,
+  "target_noise_clip": 0.5,
+  "tau": 0.002,
+  "tf_session_args": {
+    "allow_soft_placement": true,
+    "device_count": {
+      "CPU": 1
+    },
+    "gpu_options": {
+      "allow_growth": true
+    },
+    "inter_op_parallelism_threads": 2,
+    "intra_op_parallelism_threads": 2,
+    "log_device_placement": false
+  },
+  "timesteps_per_iteration": 1000,
+  "train_batch_size": 256,
+  "twin_q": false,
+  "use_eager": false,
+  "use_huber": false,
+  "use_state_preprocessor": false,
+  "worker_side_prioritization": false
+}
