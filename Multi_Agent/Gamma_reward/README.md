@@ -1,3 +1,11 @@
+### $\gamma-Reward$ Algorithm for Multi-Agent
+
+![1565523437373](./README.assets/1565523437373.png)
+$$
+\begin{array}{c}{R_{5}(t)=-r_{5}(t) \cdot\left\{1+\gamma \cdot\left[\operatorname{sigmoid} \sum_{i \in \mathcal{F}}\left(\frac{R_{i}(t-1)}{R_{i}(t-2)}-1\right)-0.5\right]\right\}} \\ {\mathcal{F}=\{2,4,6,8\}}\end{array}
+$$
+
+
 #### Environment Usage
 
 `gym_cityflow`文档结构遵循 `gym` 环境的规则，详见[此处](https://medium.com/@apoddar573/making-your-own-custom-environment-in-gym-c3b65ff8cdaa)
