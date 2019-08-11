@@ -12,17 +12,15 @@
 
 [RayDQN](./Single_Agent/RayDQN_Perfect/README.md)
 
-Rainbow
-
 
 
 #### Documentation for PG based Method
 
 PPO
 
-DDPG, TD3
+DDPG
 
-SAC
+TD3
 
 
 
@@ -40,11 +38,13 @@ Ape-X
 
 #### Multi-Agent Method
 
-QMIX
+[QMIX](./Multi_Agent/QMIX&Rule-based/README.md)
 
 VDN
 
-Gamma-Reward
+[Gamma-Reward](./Multi_Agent/Gamma_reward/README.md)
+
+[PressLight](./Multi_Agent/presslight/README.md)
 
 
 

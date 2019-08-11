@@ -1,7 +1,7 @@
 # Multi-Commander
 Multi-agent signal control
 
-## usage
+## Usage
 ### Single agent for single intersection
 **Training**
 
