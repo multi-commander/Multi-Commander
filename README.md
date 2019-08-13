@@ -16,11 +16,13 @@
 
 #### Documentation for PG based Method
 
-PPO
+[PPO](./PG_codes/ray_dqn_agent_ppo.py)
 
-DDPG
+[DDPG](./PG_codes/ray_dqn_agent_ddpg.py)
 
-TD3
+[TD3](./PG_codes/ray_dqn_agent_td3.py)
+
+[SAC](./PG_codes/ray_dqn_agent_sac.py)
 
 
 
