@@ -48,8 +48,8 @@ VDN
 
 [PressLight](./Multi_Agent/presslight/readme.md)
 
-### docker image  
-this is a complete docker image,you can start work quickly with it.  
+### Docker image  
+this is a complete Docker image,you can start work quickly with it.  
 environment：ubuntu16.04  python3.6  Cityflow  tensorflow1.14.0  Ray  Gym 
 ```
 docker pull 957001934/road-commander
