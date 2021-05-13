@@ -51,6 +51,7 @@ VDN
 ### Docker image  
 this is a complete Docker image,you can start work quickly with it.  
 environment：ubuntu16.04  python3.6  Cityflow  tensorflow1.14.0  Ray  Gym 
+you need run your docker container keep port 8080,6006,8265 connected. 
 ```
 docker pull 957001934/road-commander
 ``` 
