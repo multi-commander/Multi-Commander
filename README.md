@@ -100,3 +100,9 @@ git clone https://github.com/openai/gym
 cd gym
 pip install -e .
 ```
+
+#### docker image  
+this is a complete docker image,you can start work quickly with it.
+```
+docker pull 957001934/road-commander
+``` 
