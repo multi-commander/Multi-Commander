@@ -11,27 +11,24 @@
 
 #### Documentation for PG based Method
 
-[PPO](./PG_codes/ray_dqn_agent_ppo.py)
-[DDPG](./PG_codes/ray_dqn_agent_ddpg.py)
-[TD3](./PG_codes/ray_dqn_agent_td3.py)
-[SAC](./PG_codes/ray_dqn_agent_sac.py)
+[PPO](./PG_codes/ray_dqn_agent_ppo.py) | 
+[DDPG](./PG_codes/ray_dqn_agent_ddpg.py)| 
+[TD3](./PG_codes/ray_dqn_agent_td3.py) | 
+[SAC](./PG_codes/ray_dqn_agent_sac.py) | 
 
 
 
 #### Documentation for Distributed Method
 
-[IMPALA](./Single_Agent/ScalableArchitecture/README.md)
-[A3C](./Single_Agent/ScalableArchitecture/README.md)
-[APPO](./Single_Agent/ScalableArchitecture/README.md)
+[IMPALA](./Single_Agent/ScalableArchitecture/README.md) |
+[A3C](./Single_Agent/ScalableArchitecture/README.md) |
+[APPO](./Single_Agent/ScalableArchitecture/README.md) |
 [Ape-X](./Single_Agent/ScalableArchitecture/README.md)
-
-
 
 #### Multi-Agent Method
 
-[QMIX](./Multi_Agent/QMIX&Rule-based/README.md)
-VDN
-[Gamma-Reward](./Multi_Agent/Gamma_reward/README.md)
+[QMIX](./Multi_Agent/QMIX&Rule-based/README.md) |
+[Gamma-Reward](./Multi_Agent/Gamma_reward/README.md) |
 [PressLight](./Multi_Agent/presslight/readme.md)
 
 ### Docker image  
