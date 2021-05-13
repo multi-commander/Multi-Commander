@@ -4,17 +4,17 @@
 
 #### [Documentation for Q-Value based Method](./Single_Agent/DQN_DDQN_DuelingDQN/README.md)
 
-[DQN](./Single_Agent/DQN_DDQN_DuelingDQN/dqn_agent.py)
-[DDQN](./Single_Agent/DQN_DDQN_DuelingDQN/dqn_agent.py)
-[DuelingDQN](./Single_Agent/DQN_DDQN_DuelingDQN/duelingDQN.py)
+[DQN](./Single_Agent/DQN_DDQN_DuelingDQN/dqn_agent.py) |
+[DDQN](./Single_Agent/DQN_DDQN_DuelingDQN/dqn_agent.py) | 
+[DuelingDQN](./Single_Agent/DQN_DDQN_DuelingDQN/duelingDQN.py) | 
 [RayDQN](./Single_Agent/RayDQN_Perfect/README.md)
 
 #### Documentation for PG based Method
 
 [PPO](./PG_codes/ray_dqn_agent_ppo.py) | 
-[DDPG](./PG_codes/ray_dqn_agent_ddpg.py)| 
+[DDPG](./PG_codes/ray_dqn_agent_ddpg.py) | 
 [TD3](./PG_codes/ray_dqn_agent_td3.py) | 
-[SAC](./PG_codes/ray_dqn_agent_sac.py) | 
+[SAC](./PG_codes/ray_dqn_agent_sac.py)
 
 
 
