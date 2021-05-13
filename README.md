@@ -48,10 +48,15 @@ VDN
 
 [PressLight](./Multi_Agent/presslight/readme.md)
 
-
+### docker image  
+this is a complete docker image,you can start work quickly with it.  
+environment：ubuntu16.04  python3.6  Cityflow  tensorflow1.14.0  Ray  Gym 
+```
+docker pull 957001934/road-commander
+``` 
 
 ### Installation
-
+you can also built your environment,please follow these steps.
 This project is based on [CityFlow](https://cityflow.readthedocs.io/en/latest/) which is *a multi-agent reinforcement learning environment for large scale city traffic scenario*, the algorithms are bases on [Ray](https://ray.readthedocs.io/en/latest/) which is *a fast and simple framework for building and running distributed applications.*
 
 #### [CityFlow build from source](https://cityflow.readthedocs.io/en/latest/install.html)
@@ -101,8 +106,4 @@ cd gym
 pip install -e .
 ```
 
-#### docker image  
-this is a complete docker image,you can start work quickly with it.
-```
-docker pull 957001934/road-commander
-``` 
+
