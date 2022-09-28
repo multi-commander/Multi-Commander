@@ -38,6 +38,7 @@ you need run your docker container keep port 8080,6006,8265 connected.
 ```
 docker pull 957001934/road-commander
 ``` 
+#### Demo video : [bilibli](https://www.bilibili.com/video/BV1FA41187PA/?spm_id_from=333.999.list.card_archive.click&vd_source=784d4bb37545f9117b7160505bfbeff3)
 
 ### Installation
 you can also built your environment,please follow these steps.
